@@ -1,10 +1,11 @@
 import "../css files/signUp.css"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 
 
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({})
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,6 +32,7 @@ export default function SignUp() {
         return;
       }
       setError(false);
+      navigate('/')
     } catch (error) {
       setLoading(false);
       setError(true);
