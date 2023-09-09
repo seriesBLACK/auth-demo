@@ -29,3 +29,11 @@ button {
   color: white;
   font-weight: 600;
 }
+
+.error-message {
+  color: #a92626;
+  text-align: center;
+  font-weight: 600;
+  font-size: 19px;
+  font-family: system-ui;
+}

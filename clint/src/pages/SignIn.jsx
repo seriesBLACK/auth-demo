@@ -1,24 +1,27 @@
 import "../css files/signUp.css"
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import { useNavigate } from "react-router-dom"
-
-
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from '../redux/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function SignIn() {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({})
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({});
+  const { loading, error } = useSelector((state) => state.user);
 
-  const hanedelChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value })
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -27,25 +30,24 @@ export default function SignIn() {
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      setLoading(false);
       if (data.success === false) {
-        setError(true);
+        dispatch(signInFailure(data));
         return;
       }
-      setError(false);
-      navigate('/')
+      dispatch(signInSuccess(data));
+      navigate('/');
     } catch (error) {
-      setLoading(false);
-      setError(true);
-    };
+      dispatch(signInFailure(error));
+
+    }
   };
   return (
     <div className="signup-container">
       <h1>Sign in</h1>
       <form onSubmit={handleSubmit} className="signUp-form">
 
-        <input onChange={hanedelChange} id="email" type="email" placeholder="email" />
-        <input onChange={hanedelChange} id="password" type="password" placeholder="password" />
+        <input onChange={handleChange} id="email" type="email" placeholder="email" />
+        <input onChange={handleChange} id="password" type="password" placeholder="password" />
         <button disabled={loading} type="submit" className="signupBtn">{loading ? 'Loading...' : 'Sign In'}</button>
 
         <button>CONTINUE WITH GOOGLE</button>
@@ -60,7 +62,7 @@ export default function SignIn() {
         </p>
 
       </form>
-      <p style={{ color: 'red', textAlign: 'center' }}>{error && "Something went wrong"}</p>
+      <p className="error-message">{error ? error.message || 'Something went worng' : ''}</p>
     </div>
   )
 }
