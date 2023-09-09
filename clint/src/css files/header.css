@@ -8,7 +8,7 @@
   justify-content: space-between;
   font-weight: 700;
   align-items: center;
-  background-color: rgb(149, 162, 176);
+  background-color: rgb(171, 179, 188);
 }
 
 .header h2 {
@@ -25,4 +25,9 @@ ul {
 .header-link {
   color: black;
   text-decoration: none;
+}
+
+li {
+  font-family: sans-serif;
+  font-size: 17px;
 }
