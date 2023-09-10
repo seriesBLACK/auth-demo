@@ -1,0 +1,50 @@
+.profilePage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
+}
+
+.currentUserUrl {
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
+}
+
+.profielh1 {
+  font-size: 50px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.signUp-form input {
+  border: none;
+  height: 40px;
+  background-color: rgb(219, 227, 230);
+  border-radius: 13px;
+  text-align: center;
+  width: 40%;
+
+}
+
+.updateBtn {
+  background-color: rgb(114, 120, 127);
+  color: white;
+  margin: 0;
+}
+
+.delete-signOut {
+  margin: 0 !important;
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
+.delete-signOut p {
+  color: red;
+  font-weight: 700;
+  font-family: sans-serif;
+  cursor: pointer;
+}
