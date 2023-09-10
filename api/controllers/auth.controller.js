@@ -59,11 +59,10 @@ export const google = async (req, res, next) => {
       res.cookie('access_token', token, { httpOnly: true, expires }).status(200).json(rest)
     }
   } catch (error) {
-
-    res.status(404).json({ message: 'somthing went wrong' })
-  }
-
+    next(error);
+  };
 
 
 
-}
+
+};

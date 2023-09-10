@@ -31,3 +31,10 @@ li {
   font-family: sans-serif;
   font-size: 17px;
 }
+
+.profilePic {
+  height: 30px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
