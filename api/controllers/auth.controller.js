@@ -32,4 +32,38 @@ export const signin = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const google = async (req, res, next) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      const { password: hashedPassword, ...rest } = user._doc;
+      const expires = new Date(Date.now() + 3600000); //1 houre for cookie to expire
+      res.cookie('access_token', token, { httpOnly: true, expires }).status(200).json(rest)
+    } else {
+      const genratedPassword = Math.random().toString(36).slice(-8); //make random password for sign in with google
+      const hashedPassword2 = bcryptjs.hashSync(genratedPassword, 6);
+      const newUser = new User({
+        username: req.body.name,
+        email: req.body.email,
+        password: hashedPassword2,
+        photo: req.body.photo
+      });
+
+      await newUser.save();
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+      const { password: hashedPassword, ...rest } = newUser._doc;
+      const expires = new Date(Date.now() + 3600000); //1 houre for cookie to expire
+      res.cookie('access_token', token, { httpOnly: true, expires }).status(200).json(rest)
+    }
+  } catch (error) {
+
+    res.status(404).json({ message: 'somthing went wrong' })
+  }
+
+
+
+
 }

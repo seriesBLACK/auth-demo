@@ -25,7 +25,7 @@ button {
 }
 
 .signupBtn {
-  background-color: rgb(102, 115, 128);
+  background-color: rgb(88, 94, 101);
   color: white;
   font-weight: 600;
 }
@@ -36,4 +36,8 @@ button {
   font-weight: 600;
   font-size: 19px;
   font-family: system-ui;
+}
+
+.google {
+  background-color: rgb(153, 13, 13);
 }

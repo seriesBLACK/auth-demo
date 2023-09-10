@@ -1,6 +1,7 @@
 import "../css files/signUp.css"
 import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
+import OAuth from "../componentas/OAuth";
 
 
 
@@ -48,7 +49,7 @@ export default function SignUp() {
         <input onChange={hanedelChange} id="password" type="password" placeholder="password" />
         <button disabled={loading} type="submit" className="signupBtn">{loading ? 'Loading...' : 'Sign Up'}</button>
 
-        <button>CONTINUE WITH GOOGLE</button>
+        <OAuth />
 
 
         <p>Have an account ?

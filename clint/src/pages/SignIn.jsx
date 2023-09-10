@@ -7,6 +7,7 @@ import {
   signInFailure,
 } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import OAuth from "../componentas/OAuth";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -50,7 +51,7 @@ export default function SignIn() {
         <input onChange={handleChange} id="password" type="password" placeholder="password" />
         <button disabled={loading} type="submit" className="signupBtn">{loading ? 'Loading...' : 'Sign In'}</button>
 
-        <button>CONTINUE WITH GOOGLE</button>
+        <OAuth />
 
 
         <p>Dont Have an account ?
