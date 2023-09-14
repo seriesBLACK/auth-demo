@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebas';
 import { useDispatch } from 'react-redux';
-import { updateUserStart, updateUserFailure, updateUserSuccess } from '../redux/user/userSlice';
+import { updateUserStart, updateUserFailure, updateUserSuccess, deleteUserStart, deleteUserFailure, deleteUserSuccess } from '../redux/user/userSlice';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -73,6 +73,23 @@ export default function Profile() {
     };
   };
 
+  async function deleteAccount() {
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE'
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data));
+        return
+      };
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error));
+    };
+  };
+
   return (
 
     <form onSubmit={updateUser} className='profilePage signUp-form'>
@@ -91,7 +108,7 @@ export default function Profile() {
       <input id='password' onChange={handelChange} type="password" placeholder='password' />
       <button type='submit' className='updateBtn'>{loading ? 'loading...' : 'UPDATE'}</button>
       <div className='delete-signOut'>
-        <p>Delete account</p>
+        <p onClick={deleteAccount}>Delete account</p>
         <p>Sign out</p>
       </div>
       <p className='error'>{error && "something went wrong"}</p>
