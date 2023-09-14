@@ -48,3 +48,22 @@
   font-family: sans-serif;
   cursor: pointer;
 }
+
+.hide {
+  display: none;
+}
+
+.showProgress {
+  width: 40%;
+
+}
+
+.error {
+  color: red;
+}
+
+.green {
+  color: green;
+  font-size: 20px;
+  font-weight: 700;
+}
