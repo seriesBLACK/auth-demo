@@ -4,5 +4,5 @@ body {
 }
 
 div:not(:first-child) {
-  margin-top: 64px;
+  margin-top: 80px;
 }
