@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebas';
 import { useDispatch } from 'react-redux';
-import { updateUserStart, updateUserFailure, updateUserSuccess, deleteUserStart, deleteUserFailure, deleteUserSuccess } from '../redux/user/userSlice';
+import { signOut, updateUserStart, updateUserFailure, updateUserSuccess, deleteUserStart, deleteUserFailure, deleteUserSuccess } from '../redux/user/userSlice';
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -90,6 +90,15 @@ export default function Profile() {
     };
   };
 
+  async function signUserOut() {
+    try {
+      await fetch("/api/auth/signout")
+      dispatch(signOut());
+    } catch (error) {
+      console.log(error);
+    };
+  };
+
   return (
 
     <form onSubmit={updateUser} className='profilePage signUp-form'>
@@ -109,7 +118,7 @@ export default function Profile() {
       <button type='submit' className='updateBtn'>{loading ? 'loading...' : 'UPDATE'}</button>
       <div className='delete-signOut'>
         <p onClick={deleteAccount}>Delete account</p>
-        <p>Sign out</p>
+        <p onClick={signUserOut}>Sign out</p>
       </div>
       <p className='error'>{error && "something went wrong"}</p>
       <p className='green'>{updateSuccess && "User updated successfully"}</p>
